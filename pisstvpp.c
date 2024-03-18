@@ -91,8 +91,8 @@ void     writefile_wav  (void) ;
 
 int main(int argc, char *argv[]) {
 
-    char *protocol; 
-	int option;
+    char *protocol = NULL;
+    int option;
 
     g_rate = RATE;
     while ((option = getopt(argc, argv, "r:p:")) != -1) {
@@ -107,7 +107,11 @@ int main(int argc, char *argv[]) {
     }
 
     //Set VIS codes
-    if ( strcmp(protocol, "m1") == 0 ) {
+    if ( !protocol ) {
+        printf("No protocol option, defaulting to Martin 1...\n\n");
+        g_protocol = 44;
+    }
+    else if ( strcmp(protocol, "m1") == 0 ) {
         g_protocol = 44; //Martin 1
     }
     else if ( strcmp(protocol,"m2") == 0) {
@@ -163,7 +167,12 @@ int main(int argc, char *argv[]) {
     printf( "     scale = %d\n" , g_scale ) ;
     printf( "   us/samp = %f\n" , g_uspersample ) ;
     printf( "   2p/rate = %f\n\n" , g_twopioverrate ) ;
-    
+
+    if ( optind >= argc ) {
+        printf("No file arguments given.\n");
+        return 2 ;
+    }
+
     // set filenames    
     strncpy( inputfile , argv[optind] , strlen( argv[optind] ) ) ;
     ft = filetype( inputfile ) ;
