@@ -14,7 +14,7 @@ To compile PiSSTVpp, you should download this repository and also have:
 
 On Ubuntu or Debian, you should be able to install those dependencies by typing into your terminal:
 
-`sudo apt-get install build-essential libgd libmagic`
+`sudo apt-get install build-essential libgd-dev libmagic-dev`
 
 After that, type `make pisstvpp` in the directory where PiSSTV resides in.
 
